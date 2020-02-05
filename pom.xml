@@ -6,7 +6,7 @@
 
     <groupId>moe.xinmu.patchouli.doggytalents</groupId>
     <artifactId>agent</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
 
     <repositories>
         <repository>
@@ -18,7 +18,9 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -32,7 +34,6 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Premain-Class>moe.xinmu.patchouli.doggytalents.PreMain</Premain-Class>
                             <TweakClass>moe.xinmu.patchouli.doggytalents.ForgeTweaker</TweakClass>
                         </manifestEntries>
                     </archive>

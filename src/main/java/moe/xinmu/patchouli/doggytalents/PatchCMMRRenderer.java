@@ -5,10 +5,12 @@ import org.objectweb.asm.*;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.Objects;
-
+/**
+ * 用于注入入口
+ */
 public class PatchCMMRRenderer implements ClassTransformer {
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         if (Objects.nonNull(className) && className.equals("yarrmateys/cuteMobModelsRemake/CMMRRenderer")) {
             ClassReader cr = new ClassReader(classfileBuffer);
             ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_FRAMES);
@@ -41,15 +43,15 @@ public class PatchCMMRRenderer implements ClassTransformer {
                                     if (opcode == Opcodes.INVOKESTATIC && name.equals("registerEntityRenderingHandler")) {
                                         conversion = false;
                                         visitLdcInsn(Type.getType("Ldoggytalents/entity/EntityDog;"));
-                                        visitTypeInsn(Opcodes.NEW, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/RenderCMMRWolf;").getInternalName());
+                                        visitTypeInsn(Opcodes.NEW, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/RenderCMMRDoggy;").getInternalName());
                                         visitInsn(Opcodes.DUP);
-                                        visitTypeInsn(Opcodes.NEW, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRWolf;").getInternalName());
+                                        visitTypeInsn(Opcodes.NEW, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRDoggy;").getInternalName());
                                         visitInsn(Opcodes.DUP);
                                         visitLdcInsn(.0f);
                                         visitLdcInsn(.0f);
-                                        super.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRWolf;").getInternalName(), "<init>", "(FF)V", false);
+                                        super.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRDoggy;").getInternalName(), "<init>", "(FF)V", false);
                                         visitLdcInsn(.3f);
-                                        super.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/RenderCMMRWolf;").getInternalName(), "<init>", "(Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRWolf;F)V", false);
+                                        super.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getType("Lyarrmateys/cuteMobModelsRemake/mobs/RenderCMMRDoggy;").getInternalName(), "<init>", "(Lyarrmateys/cuteMobModelsRemake/mobs/ModelCMMRDoggy;F)V", false);
                                         super.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getType("Lnet/minecraftforge/fml/client/registry/RenderingRegistry;").getInternalName(), "registerEntityRenderingHandler", "(Ljava/lang/Class;Lnet/minecraft/client/renderer/entity/Render;)V", false);
                                     }
                                 }
